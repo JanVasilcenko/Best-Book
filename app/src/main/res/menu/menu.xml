@@ -28,7 +28,10 @@
                 android:title="Share"
                 android:icon="@drawable/ic_baseline_share_24"
                 />
-
+            <item android:id="@+id/verify_email"
+                android:title="Verify Email"
+                android:icon="@drawable/ic_baseline_email_24"
+                />
 
         </menu>
     </item>

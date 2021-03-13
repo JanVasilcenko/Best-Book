@@ -9,16 +9,26 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawerLayout;
+    FirebaseAuth auth;
+    FirebaseUser user;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +36,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        auth = FirebaseAuth.getInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new home_fragment());
+        user = auth.getCurrentUser();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_draw_open, R.string.navigation_draw_close);
 
@@ -41,7 +53,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.home);
         }
 
+        onPrepareOptionsMenu(navigationView.getMenu());
     }
+
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem verify = menu.findItem(R.id.verify_email);
+        if(user.isEmailVerified())
+        {
+            verify.setVisible(false);
+        }
+        else
+        {
+            verify.setVisible(true);
+            Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -61,6 +90,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(new Intent(getApplicationContext(),Login.class));
                     finish();
                     break;
+            case R.id.verify_email:
+                if (!user.isEmailVerified())
+                {
+                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(MainActivity.this, "Verification email has been sent", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("tag", "onFailure: Email not sent"+e.getMessage());
+                        }
+                    });
+                }
+                else
+                    {
+                        Toast.makeText(this, "Email has been verified", Toast.LENGTH_SHORT).show();
+                        MenuItem verify = navigationView.getMenu().findItem(R.id.verify_email).setVisible(false);
+                    }
+                break;
         }
         return true;
     }
