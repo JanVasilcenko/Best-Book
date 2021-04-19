@@ -1,4 +1,4 @@
-package com.example.bestbook;
+package com.example.bestbook.ui.splashscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.os.Handler;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bestbook.R;
+import com.example.bestbook.ui.login.LoginScreenActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private Handler handler = new Handler();

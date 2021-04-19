@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/favouriteFragment">
+    app:startDestination="@id/homeFragment">
 
 
     <fragment
@@ -16,4 +16,9 @@
         android:name="com.example.bestbook.ui.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.bestbook.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
 </navigation>

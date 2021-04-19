@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bestbook">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,17 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BestBook">
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginScreenActivity">
+        <activity android:name=".ui.login.LoginScreenActivity">
 
         </activity>
-        <activity android:name=".RegisterScreenActivity">
+        <activity android:name=".ui.register.RegisterScreenActivity">
 
         </activity>
         <activity android:name=".MainActivity"
