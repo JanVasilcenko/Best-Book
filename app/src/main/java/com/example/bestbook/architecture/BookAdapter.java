@@ -1,0 +1,62 @@
+package com.example.bestbook.architecture;
+
+import android.content.Context;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.example.bestbook.R;
+import com.example.bestbook.model.Book;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
+
+    private ArrayList<Book> books;
+    private Context context;
+
+    public BookAdapter(Context context,ArrayList<Book> books) {
+
+        this.books = books;
+        this.context = context;
+    }
+
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.single_item, parent,false);
+        return new ViewHolder(view);
+    }
+
+    public void onBindViewHolder(ViewHolder viewHolder, int position)
+    {
+        viewHolder.bookName.setText(books.get(position).getTitle());
+        viewHolder.authorName.setText(books.get(position).getAuthor());
+        Picasso.with(this.context).load(Uri.parse(books.get(position).getMediumCoverUrl())).error(R.drawable.ic_baseline_menu_book_24).into(viewHolder.cover);
+        //Glide.with(context).load(books.get(position).getMediumCoverUrl()).into(viewHolder.cover);
+    }
+
+    public int getItemCount(){
+        return books.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        TextView bookName;
+        ImageView cover;
+        TextView authorName;
+
+        ViewHolder(View itemView){
+            super(itemView);
+            bookName = itemView.findViewById(R.id.bookTitle);
+            cover = itemView.findViewById(R.id.bookCover);
+            authorName = itemView.findViewById(R.id.authorName);
+        }
+    }
+}
