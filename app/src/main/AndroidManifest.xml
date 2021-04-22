@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bestbook">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BestBook">
-        android:name="com.example.App" >
+        <activity android:name=".ui.detail.BookDetailActivity"></activity>
         <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,16 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.login.LoginScreenActivity">
-
-        </activity>
-        <activity android:name=".ui.register.RegisterScreenActivity">
-
-        </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.BestBook.NoActionBar">
-
-        </activity>
+        <activity android:name=".ui.login.LoginScreenActivity"></activity>
+        <activity android:name=".ui.register.RegisterScreenActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.BestBook.NoActionBar"></activity>
     </application>
 
 </manifest>

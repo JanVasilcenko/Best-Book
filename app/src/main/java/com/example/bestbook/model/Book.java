@@ -6,13 +6,45 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Book {
+public class Book implements Serializable {
     private String id;
     private String title;
     private String author;
+    private String publisher;
+    private String numOfPages;
+    private String description;
+    private boolean hasCoverImage;
 
+    public boolean hasCoverImage() {
+        return hasCoverImage;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setNumOfPages(String numOfPages) {
+        this.numOfPages = numOfPages;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getNumOfPages() {
+        return numOfPages;
+    }
 
     public String getTitle() {
         return title;
@@ -50,6 +82,12 @@ public class Book {
                 final JSONArray ids = jsonObject.getJSONArray("edition_key");
                 book.id = ids.getString(0);
             }
+
+            if (jsonObject.has("cover_i"))
+            {
+             book.hasCoverImage = true;
+            }
+
             book.title = jsonObject.has("title_suggest") ? jsonObject.getString("title_suggest") : "";
             book.author = getAuthor(jsonObject);
         } catch (JSONException e)

@@ -16,15 +16,16 @@ BookRepository bookRepository;
 public HomeViewModel(){bookRepository = BookRepository.getInstance();}
 
 //public void fetchBook(String id){bookRepository.fetchBook(id);}
-LiveData<Book> getBook(){return bookRepository.getBook();}
 public void searchBooks(String name)
 {
     bookRepository.searchForBooks(name);
 }
+
 LiveData<ArrayList<Book>> getSearchedBooks()
 {
     return bookRepository.getSearchedBooks();
 }
+
 
 
 }

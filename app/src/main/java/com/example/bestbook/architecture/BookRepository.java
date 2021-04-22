@@ -1,16 +1,17 @@
 package com.example.bestbook.architecture;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
 import com.example.bestbook.model.Book;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -20,7 +21,7 @@ import retrofit2.Response;
 
 public class BookRepository {
     private static BookRepository instance;
-    private final MutableLiveData<Book> book;
+    private MutableLiveData<Book> book;
     private MutableLiveData<ArrayList<Book>> bookCollection;
 
     private BookRepository() {
@@ -41,6 +42,50 @@ public class BookRepository {
 
     public LiveData<ArrayList<Book>> getSearchedBooks() {
         return bookCollection;
+    }
+
+    public void getBookInfo(Book passedBook)
+    {
+        BookApi bookApi = ServiceGenerator.getBookApi();
+        Call<ResponseBody> call = bookApi.getBookInfo(passedBook.getId());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                {
+                   try
+                   {
+                       JSONObject json = new JSONObject(response.body().string());
+
+                       if (json.has("publishers"))
+                       {
+                           JSONArray publishers = json.getJSONArray("publishers");
+                           passedBook.setPublisher(publishers.getString(0));
+                       }
+
+                       if (json.has("number_of_pages"))
+                       {
+                           passedBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
+                       }
+
+                       if (json.has("description"))
+                       {
+                           JSONObject descriptionObj = json.getJSONObject("description");
+                           passedBook.setDescription(descriptionObj.getString("value"));
+                       }
+
+                       book.setValue(passedBook);
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     public void searchForBooks(String name)
@@ -67,7 +112,10 @@ public class BookRepository {
                             {
                                 books.clear();
                                 for (int i = 0; i < 50; i++) {
-                                 books.add(extractedBooks.get(i));
+                                    if (extractedBooks.get(i).hasCoverImage())
+                                    {
+                                        books.add(extractedBooks.get(i));
+                                    }
                                 }
                             }
                             else

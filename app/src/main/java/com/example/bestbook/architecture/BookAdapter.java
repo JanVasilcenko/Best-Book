@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+
 import com.example.bestbook.R;
 import com.example.bestbook.model.Book;
 import com.squareup.picasso.Picasso;
@@ -19,13 +19,15 @@ import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
-    private ArrayList<Book> books;
+    final private OnListItemClickListener onListItemClickListener;
+    public ArrayList<Book> books;
     private Context context;
 
-    public BookAdapter(Context context,ArrayList<Book> books) {
+    public BookAdapter(Context context,ArrayList<Book> books,OnListItemClickListener onListItemClickListener) {
 
         this.books = books;
         this.context = context;
+        this.onListItemClickListener = onListItemClickListener;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -39,7 +41,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     {
         viewHolder.bookName.setText(books.get(position).getTitle());
         viewHolder.authorName.setText(books.get(position).getAuthor());
-        Picasso.with(this.context).load(Uri.parse(books.get(position).getMediumCoverUrl())).error(R.drawable.ic_baseline_menu_book_24).into(viewHolder.cover);
+        Picasso.with(this.context).load(Uri.parse(books.get(position).getMediumCoverUrl())).error(R.drawable.no_cover_available).into(viewHolder.cover);
         //Glide.with(context).load(books.get(position).getMediumCoverUrl()).into(viewHolder.cover);
     }
 
@@ -47,7 +49,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         return books.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView bookName;
         ImageView cover;
         TextView authorName;
@@ -57,6 +59,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             bookName = itemView.findViewById(R.id.bookTitle);
             cover = itemView.findViewById(R.id.bookCover);
             authorName = itemView.findViewById(R.id.authorName);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onListItemClickListener.onListItemClick(getAdapterPosition());
+        }
+    }
+    public interface OnListItemClickListener
+    {
+        void onListItemClick(int clickedItemIndex);
     }
 }

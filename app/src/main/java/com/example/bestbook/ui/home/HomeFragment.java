@@ -1,6 +1,7 @@
 package com.example.bestbook.ui.home;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 
@@ -25,11 +27,13 @@ import com.example.bestbook.R;
 
 import com.example.bestbook.architecture.BookAdapter;
 import com.example.bestbook.model.Book;
+import com.example.bestbook.ui.detail.BookDetailActivity;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements BookAdapter.OnListItemClickListener{
 
+    public static  final String BOOK_KEY = "book";
     private HomeViewModel homeViewModel;
     RecyclerView booksList;
     BookAdapter booksAdapter;
@@ -47,7 +51,7 @@ public class HomeFragment extends Fragment {
 
 
         ArrayList<Book> books = new ArrayList<>();
-        booksAdapter = new BookAdapter(getContext(),books);
+        booksAdapter = new BookAdapter(getContext(),books,this);
         booksList.setAdapter(booksAdapter);
 
 
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -88,5 +93,12 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Intent toBookDetailIntent = new Intent(getActivity(), BookDetailActivity.class);
+        toBookDetailIntent.putExtra(BOOK_KEY, booksAdapter.books.get(clickedItemIndex));
+        startActivity(toBookDetailIntent);
     }
 }

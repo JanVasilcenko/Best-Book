@@ -18,8 +18,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bestbook.ui.login.LoginScreenActivity;
@@ -33,6 +35,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private TextView email;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -40,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        email = (TextView) headerView.findViewById(R.id.email);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.homeFragment ,R.id.favouriteFragment, R.id.settingsFragment)
                 .setDrawerLayout(drawer)
@@ -62,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        Log.i("smt", "IS: "+user.isEmailVerified());
+        email.setText(user.getEmail());
+
+
         if(!user.isEmailVerified())
         {
             AlertDialog.Builder emailVerification = new AlertDialog.Builder(MainActivity.this);
