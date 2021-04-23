@@ -3,6 +3,7 @@ package com.example.bestbook.ui.detail;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.bestbook.R;
 import com.example.bestbook.model.Book;
+import com.example.bestbook.model.FavouriteReference;
 import com.example.bestbook.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -27,7 +30,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private TextView pageCount;
     private TextView description;
     private BookDetailViewModel bookDetailViewModel;
-    private CheckBox favourite;
+    private ToggleButton favourite;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -57,20 +60,39 @@ public class BookDetailActivity extends AppCompatActivity {
         } );
 
         favourite = findViewById(R.id.favourite);
+
+
         favourite.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-
+                if (((ToggleButton) v).isChecked()) {
+                    bookDetailViewModel.insert(new FavouriteReference(book.getId(),firebaseAuth.getCurrentUser().getEmail()));
                 }
                 else
-                return;
+                bookDetailViewModel.deleteReference(book.getId());
             }
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //bookDetailViewModel.insert(new FavouriteReference("test","test"));
+        bookDetailViewModel.getAllReferences().observe(this, references ->{
+
+            for (FavouriteReference r:references) {
+                if (r.getBookID().equals(book.getId()))
+                {
+                    favourite.setChecked(true);
+                    break;
+                }else
+                    {
+                        favourite.setChecked(false);
+                    }
+            }
+
+
+        });
     }
 
     @Override

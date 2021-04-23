@@ -18,6 +18,18 @@ public class Book implements Serializable {
     private String description;
     private boolean hasCoverImage;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public boolean hasCoverImage() {
         return hasCoverImage;
     }
@@ -98,7 +110,7 @@ public class Book implements Serializable {
         return book;
     }
 
-    private static String getAuthor(final JSONObject jsonObject)
+    public static String getAuthor(final JSONObject jsonObject)
     {
         try
         {

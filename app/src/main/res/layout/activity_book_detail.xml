@@ -30,10 +30,15 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
 
-            <CheckBox
+            <ToggleButton
                 android:id="@+id/favourite"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/toggle_selector"
+                android:textOff=""
+                android:textOn=""
+                />
+
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"

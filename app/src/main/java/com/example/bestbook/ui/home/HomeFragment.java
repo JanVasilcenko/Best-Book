@@ -33,9 +33,9 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements BookAdapter.OnListItemClickListener{
 
-    public static  final String BOOK_KEY = "book";
+    public static final String BOOK_KEY = "book";
     private HomeViewModel homeViewModel;
-    RecyclerView booksList;
+    RecyclerView searchBooksList;
     BookAdapter booksAdapter;
     ProgressBar progressBar;
 
@@ -43,16 +43,16 @@ public class HomeFragment extends Fragment implements BookAdapter.OnListItemClic
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        booksList = root.findViewById(R.id.recycleView);
-        progressBar = root.findViewById(R.id.progressBar3);
-        booksList.hasFixedSize();
+        searchBooksList = root.findViewById(R.id.bookSearchRecycleView);
+        progressBar = root.findViewById(R.id.loadingBooksProgressBar);
+        searchBooksList.hasFixedSize();
         setHasOptionsMenu(true);
-        booksList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        searchBooksList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
 
         ArrayList<Book> books = new ArrayList<>();
         booksAdapter = new BookAdapter(getContext(),books,this);
-        booksList.setAdapter(booksAdapter);
+        searchBooksList.setAdapter(booksAdapter);
 
 
         homeViewModel.getSearchedBooks().observe(getViewLifecycleOwner(),bookCollection -> {

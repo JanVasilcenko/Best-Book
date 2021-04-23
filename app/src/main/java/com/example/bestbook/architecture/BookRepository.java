@@ -1,17 +1,23 @@
 package com.example.bestbook.architecture;
 
+
+
+
+import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
 import com.example.bestbook.model.Book;
-import com.squareup.picasso.Picasso;
+import com.example.bestbook.model.FavouriteReference;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -23,9 +29,11 @@ public class BookRepository {
     private static BookRepository instance;
     private MutableLiveData<Book> book;
     private MutableLiveData<ArrayList<Book>> bookCollection;
+    private MutableLiveData<ArrayList<Book>> myBooks;
 
     private BookRepository() {
         book = new MutableLiveData<>();
+        myBooks = new MutableLiveData<>();
         bookCollection = new MutableLiveData<>();
     }
 
@@ -36,6 +44,100 @@ public class BookRepository {
         return instance;
     }
 
+    public LiveData<ArrayList<Book>> getMyBooks(){return myBooks;}
+    public void getMyBooks(ArrayList<FavouriteReference> myBookReferences)
+    {
+        if(myBookReferences == null ||myBookReferences.isEmpty())
+        {
+            myBooks.setValue(new ArrayList<>());
+            return;
+        }
+
+
+
+
+        ArrayList<Book> returnedBooks = new ArrayList<>();
+        for (FavouriteReference r: myBookReferences)
+        {
+            BookApi bookApi = ServiceGenerator.getBookApi();
+            Call<ResponseBody> call = bookApi.getBookInfo(r.getBookID());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                   try
+                   {
+                       JSONObject json = new JSONObject(response.body().string());
+
+                       Book myBook = new Book();
+
+                       myBook.setId(r.getBookID());
+
+                       if (json.has("title"))
+                       {
+                           myBook.setTitle(json.getString("title"));
+                       }
+
+                       if (json.has("publishers"))
+                       {
+                           JSONArray publishers = json.getJSONArray("publishers");
+                           myBook.setPublisher(publishers.getString(0));
+                       }
+
+                       if (json.has("number_of_pages"))
+                       {
+                           myBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
+                       }
+
+                       if (json.has("description"))
+                       {
+                           JSONObject descriptionObj;
+                           try
+                           {
+                               descriptionObj = json.getJSONObject("description");
+                               myBook.setDescription(descriptionObj.getString("value"));
+                           }
+                           catch (JSONException e)
+                           {
+                               myBook.setDescription(json.getString("description"));
+                           }
+
+
+                       }
+                       if (json.has("author_name"))
+                       {
+                           try
+                           {
+                               final JSONArray authors = json.getJSONArray("author_name");
+                               int numAuthors = authors.length();
+                               final String[] authorStrings = new String[numAuthors];
+                               for (int i = 0; i < numAuthors; i++) {
+                                   authorStrings[i] = authors.getString(i);
+                               }
+                               myBook.setAuthor(TextUtils.join(", ",authorStrings));
+                           }catch (JSONException e)
+                           {
+                               myBook.setAuthor("");
+                           }
+                       }
+
+                       returnedBooks.add(myBook);
+                       myBooks.setValue(returnedBooks);
+                   }
+                   catch (Exception e)
+                   {
+
+                   }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+
+
+    }
     public LiveData<Book> getBook() {
         return book;
     }
@@ -70,8 +172,18 @@ public class BookRepository {
 
                        if (json.has("description"))
                        {
-                           JSONObject descriptionObj = json.getJSONObject("description");
-                           passedBook.setDescription(descriptionObj.getString("value"));
+                           JSONObject descriptionObj;
+                           try
+                           {
+                               descriptionObj = json.getJSONObject("description");
+                               passedBook.setDescription(descriptionObj.getString("value"));
+                           }
+                           catch (JSONException e)
+                           {
+                               passedBook.setDescription(json.getString("description"));
+                           }
+
+
                        }
 
                        book.setValue(passedBook);
