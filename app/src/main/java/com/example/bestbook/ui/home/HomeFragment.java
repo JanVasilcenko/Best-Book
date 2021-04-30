@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment implements BookAdapter.OnListItemClic
         booksAdapter = new BookAdapter(getContext(),books,this);
         searchBooksList.setAdapter(booksAdapter);
 
-
         homeViewModel.getSearchedBooks().observe(getViewLifecycleOwner(),bookCollection -> {
             progressBar.setVisibility(ProgressBar.GONE);
             books.clear();

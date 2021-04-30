@@ -85,6 +85,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="14sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Add Comment..."
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:id="@+id/comments"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/commentsRecyclerView"
+                android:background="@color/lightGray"
+                />
 
         </LinearLayout>
     </ScrollView>
