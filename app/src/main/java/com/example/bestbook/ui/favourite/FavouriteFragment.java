@@ -21,6 +21,11 @@ import com.example.bestbook.model.Book;
 import com.example.bestbook.model.FavouriteReference;
 import com.example.bestbook.ui.detail.BookDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -35,6 +40,7 @@ public class FavouriteFragment extends Fragment implements BookAdapter.OnListIte
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private TextView noBooksYet;
+    FirebaseDatabase database;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,6 +56,9 @@ public class FavouriteFragment extends Fragment implements BookAdapter.OnListIte
         myReferences = new ArrayList<>();
         noBooksYet = root.findViewById(R.id.noBooksYet);
         bookAdapter = new BookAdapter(getContext(),books,this);
+
+        //Setting up database
+        database = FirebaseDatabase.getInstance("https://best-book-3c38c-default-rtdb.europe-west1.firebasedatabase.app/");
 
         //Settings for recycler view
         favouriteBooksList.hasFixedSize();
@@ -104,6 +113,47 @@ public class FavouriteFragment extends Fragment implements BookAdapter.OnListIte
         favouriteViewModel.getBooks().observe(getViewLifecycleOwner(),books1 -> {
             progressBar.setVisibility(ProgressBar.GONE);
             books.clear();
+
+            //Get book ratings
+            for (Book b:books1)
+            {
+                DatabaseReference reference = database.getReference().child("Books");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot s : snapshot.getChildren())
+                        {
+                            if (s.getKey().equals(b.getId()))
+                            {
+                                DatabaseReference newReference = database.getReference().child("Books").child(b.getId()).child("Rating");
+                                newReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        float counter = 0f;
+                                        int count = 0;
+                                        for (DataSnapshot s : snapshot.getChildren()) {
+                                            counter += Float.parseFloat(s.getValue().toString());
+                                            count++;
+                                        }
+                                        b.setRating(counter / count);
+                                        bookAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
             books.addAll(books1);
             bookAdapter.notifyDataSetChanged();
         });

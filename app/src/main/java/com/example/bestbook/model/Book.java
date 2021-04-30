@@ -17,6 +17,7 @@ public class Book implements Serializable {
     private String numOfPages;
     private String description;
     private boolean hasCoverImage;
+    private float rating;
 
     public void setId(String id) {
         this.id = id;
@@ -68,6 +69,14 @@ public class Book implements Serializable {
 
     public String getAuthor() {
         return author;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getMediumCoverUrl()

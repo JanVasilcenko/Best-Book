@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     {
         viewHolder.bookName.setText(books.get(position).getTitle());
         viewHolder.authorName.setText(books.get(position).getAuthor());
+        viewHolder.ratingBar.setRating(books.get(position).getRating());
         Picasso.with(this.context).load(Uri.parse(books.get(position).getMediumCoverUrl())).error(R.drawable.no_cover_available).into(viewHolder.cover);
         //Glide.with(context).load(books.get(position).getMediumCoverUrl()).into(viewHolder.cover);
     }
@@ -53,9 +55,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         TextView bookName;
         ImageView cover;
         TextView authorName;
+        RatingBar ratingBar;
 
         ViewHolder(View itemView){
             super(itemView);
+            ratingBar = itemView.findViewById(R.id.bookRating);
             bookName = itemView.findViewById(R.id.bookTitle);
             cover = itemView.findViewById(R.id.bookCover);
             authorName = itemView.findViewById(R.id.authorName);
