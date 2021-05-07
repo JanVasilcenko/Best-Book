@@ -11,10 +11,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +30,17 @@ import com.example.bestbook.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private TextView email;
-
+    private ImageView profile;
     private MainActivityViewModel mainActivityViewModel;
+    private final int GALLERY_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         Toolbar toolbar = findViewById(R.id.toolbar);
         email = (TextView) headerView.findViewById(R.id.email);
+        profile = navigationView.getHeaderView(0).findViewById(R.id.imageView);
 
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
@@ -109,7 +123,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void setImage(View view)
+    {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case GALLERY_REQUEST:
+                    Uri selectedImage = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), selectedImage);
+                        profile.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        Log.i("TAG", "Some exception " + e);
+                    }
+                    break;
+            }
     }
 
     @Override
