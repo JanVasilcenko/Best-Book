@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.fragments.home.HomeFragment">
 
 
     <ProgressBar
@@ -16,6 +16,17 @@
         android:max="100"
         android:indeterminate="true"
         android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for books"
+        android:textSize="30sp"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="80dp"
+        android:visibility="gone"
+        android:id="@+id/noBooksSearched"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

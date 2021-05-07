@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.detail.BookDetailActivity">
+    tools:context=".ui.fragments.detail.BookDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add Comment..."
+                android:hint="Add Review..."
                 android:inputType="text"
                 android:imeOptions="actionDone"
                 android:id="@+id/comments"/>
