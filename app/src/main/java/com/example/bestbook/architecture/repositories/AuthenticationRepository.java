@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.bestbook.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,7 +53,8 @@ public class AuthenticationRepository {
                 if (task.isSuccessful())
                 {
                     userData.postValue(firebaseAuth.getCurrentUser());
-                    Toast.makeText(application.getApplicationContext(), "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                    loggedOutData.postValue(false);
+                    Toast.makeText(application.getApplicationContext(), R.string.loginsuccess, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -74,21 +76,21 @@ public class AuthenticationRepository {
                     user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(application.getApplicationContext(), "Verification email has been sent", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(application.getApplicationContext(),R.string.verificationpositive, Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(application.getApplicationContext(), "Email has NOT been sent " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(application.getApplicationContext(), R.string.verificationnegative + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                    Toast.makeText(application.getApplicationContext(), "User registered successfully", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(application.getApplicationContext(), R.string.userregisteredpositive, Toast.LENGTH_SHORT).show();
+                    loggedOutData.postValue(false);
                 }
                 else
                 {
-                    Toast.makeText(application.getApplicationContext(), "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application.getApplicationContext(), R.string.error + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,12 +101,12 @@ public class AuthenticationRepository {
         firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(application.getApplicationContext(), "Verification email has been sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(application.getApplicationContext(), R.string.verificationpositive, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application.getApplicationContext(), "Email has NOT been sent " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application.getApplicationContext(), R.string.verificationnegative + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,12 +122,12 @@ public class AuthenticationRepository {
         firebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(application.getApplicationContext(), "Reset link sent to your Email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(application.getApplicationContext(), R.string.linkpositive, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application.getApplicationContext(), "Error, Link has not been sent "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application.getApplicationContext(), R.string.error + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

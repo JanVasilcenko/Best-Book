@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Published By"
+                android:text="@string/publishedby"
                 android:textSize="14sp" />
 
             <TextView
@@ -88,7 +88,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add Review..."
+                android:hint="@string/addreview"
                 android:inputType="text"
                 android:imeOptions="actionDone"
                 android:id="@+id/comments"/>

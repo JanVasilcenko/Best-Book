@@ -63,13 +63,13 @@ public class LoginScreenActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty((emailText)))
         {
-            email.setError("Please enter an Email");
+            email.setError(Integer.toString(R.string.pleaseenteremail));
             return;
         }
 
         if (TextUtils.isEmpty(passwordText))
         {
-            password.setError("Please enter a Password");
+            password.setError(Integer.toString(R.string.pleaseenterpassword));
             return;
         }
 
@@ -83,11 +83,11 @@ public class LoginScreenActivity extends AppCompatActivity {
         EditText resetEmail = new EditText(view.getContext());
         AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
 
-        passwordResetDialog.setTitle("Reset Password");
-        passwordResetDialog.setMessage("Enter your email to receive reset link");
+        passwordResetDialog.setTitle(R.string.resetpassword);
+        passwordResetDialog.setMessage(R.string.enteremail);
         passwordResetDialog.setView(resetEmail);
 
-        passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        passwordResetDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -96,7 +96,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             }
         });
 
-        passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        passwordResetDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Closing dialog

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Boolean loggedOut) {
                 if (loggedOut)
                 {
-                    Toast.makeText(getApplicationContext(), "User Logged Out", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.logoutsuccess, Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -87,17 +87,17 @@ public class MainActivity extends AppCompatActivity {
                 if(!firebaseUser.isEmailVerified())
                 {
                     AlertDialog.Builder emailVerification = new AlertDialog.Builder(MainActivity.this);
-                    emailVerification.setTitle("Verify Email");
-                    emailVerification.setMessage("This account is not verified, do you want to resend the activation email?");
+                    emailVerification.setTitle(R.string.verifyemail);
+                    emailVerification.setMessage(R.string.thisaccountnotverified);
 
-                    emailVerification.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    emailVerification.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mainActivityViewModel.verifyingEmail();
                         }
                     });
 
-                    emailVerification.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    emailVerification.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //Close dialog

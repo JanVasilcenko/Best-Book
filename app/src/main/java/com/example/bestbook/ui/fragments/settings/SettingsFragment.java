@@ -16,6 +16,7 @@ public class SettingsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        getActivity().setTitle(R.string.settings);
         return root;
     }
 }

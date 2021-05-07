@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for books"
+        android:text="@string/searchforbooks"
         android:textSize="30sp"
         android:layout_marginTop="300dp"
         android:layout_marginLeft="80dp"

@@ -54,6 +54,8 @@ public class FavouriteFragment extends Fragment implements BookAdapter.OnListIte
 
         noBooksYet.setVisibility(TextView.GONE);
 
+        getActivity().setTitle(R.string.favourite);
+
         return root;
     }
 

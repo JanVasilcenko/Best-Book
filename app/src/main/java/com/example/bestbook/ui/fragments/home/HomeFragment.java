@@ -70,6 +70,8 @@ public class HomeFragment extends Fragment implements BookAdapter.OnListItemClic
 
         noSearchedBooks.setVisibility(View.VISIBLE);
 
+        getActivity().setTitle(R.string.home);
+
         return root;
     }
 
