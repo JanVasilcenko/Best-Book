@@ -31,6 +31,8 @@ Leave a short review of the book
 Be able to customize your profile picture in the app
 
 ### Won’t Have
-Option to see other accounts and their book ratings
+Option to see other accounts details
+
+Option to view ratings of users who did not review the book
 
 Option to rate one book twice
