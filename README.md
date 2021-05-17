@@ -17,7 +17,7 @@ Login and Register system ✔️
 
 See the total book rating ✔️
 
-Settings menu to change settings of application 
+Settings menu to change settings of application ❌
 
 Option to reset user password via email ✔️
 
