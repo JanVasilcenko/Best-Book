@@ -35,4 +35,6 @@
     <string name="pleaseenteremail">Prosím zadejte email</string>
     <string name="resetpassword">Obnovit heslo</string>
     <string name="enteremail">Prosím zadejte svůj email na obnovení hesla</string>
+    <string name="nightmode">Noční režim</string>
+    <string name="notifications">Upozornění</string>
 </resources>

@@ -34,4 +34,6 @@
     <string name="pleaseenteremail">Please enter an Email</string>
     <string name="resetpassword">Reset Password</string>
     <string name="enteremail">Enter your email to receive reset link</string>
+    <string name="nightmode">Night Mode</string>
+    <string name="notifications">Notifications</string>
 </resources>
