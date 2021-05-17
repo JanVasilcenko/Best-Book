@@ -4,35 +4,35 @@ Best Book is application for all the bookworms out there, or just for people who
 ## Moscow priorities
 ### Must Have
 
-Option to rate books
+Option to rate books ✔️
 
-Search through all of the books based on name or genre
+Search through all of the books based on name ✔️
 
-Adding book to favourites 
+Adding book to favourites ✔️
 
-View book description and genre
+View book description and genre ✔️
 
 ### Should Have
-Login and Register system
+Login and Register system ✔️
 
-See the total book rating
+See the total book rating ✔️
 
-Settings menu to change settings of application
+Settings menu to change settings of application 
 
-Option to reset user password via email
+Option to reset user password via email ✔️
 
 ### Could Have
-Add books for users to rate
+Add books for users to rate ✔️
 
-Language support for the base app
+Language support for the base app ✔️
 
-Leave a short review of the book
+Leave a short review of the book ✔️
 
-Be able to customize your profile picture in the app
+Be able to customize your profile picture in the app ✔️
 
 ### Won’t Have
-Option to see other accounts details
+Option to see other accounts details ✔️
 
-Option to view ratings of users who did not review the book
+Option to view ratings of users who did not review the book ✔️
 
-Option to rate one book twice
+Option to rate one book twice ✔️
