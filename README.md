@@ -37,4 +37,27 @@ Option to view ratings of users who did not review the book ✔️
 
 Option to rate one book twice ✔️
 
+### Youtube Link
 Youtube link - https://www.youtube.com/watch?v=vRTatILgHkQ
+
+### Curriculum context
+
+Layouts and Android basics ✔️
+
+Activities and Resources ✔️
+
+Intents and Fragments ✔️
+
+User Experience ✔️
+
+RecyclerViews ✔️
+
+Application Architecture ✔️
+
+Local Data Storage ✔️
+
+Networking ✔️
+
+Google Services ✔️
+
+Testing & Publishing ❌
