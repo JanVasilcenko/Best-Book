@@ -60,4 +60,4 @@ Networking ✔️
 
 Google Services ✔️
 
-Testing & Publishing ❌
+Testing and Publishing ❌
