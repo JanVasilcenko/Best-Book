@@ -1,6 +1,7 @@
 package com.example.bestbook.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,8 +89,69 @@ public class Book implements Serializable {
     {
         return "https://covers.openlibrary.org/b/olid/" + id + "-L.jpg?default=false";
     }
+    public static Book fromJsonDetailInfo(JSONObject json)
+    {
+        Book myBook = new Book();
 
-    public static Book fromJson(JSONObject jsonObject)
+        try
+        {
+            if (json.has("title"))
+            {
+                myBook.setTitle(json.getString("title"));
+            }
+
+            if (json.has("publishers"))
+            {
+                JSONArray publishers = json.getJSONArray("publishers");
+                myBook.setPublisher(publishers.getString(0));
+            }
+
+            if (json.has("number_of_pages"))
+            {
+                myBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
+            }
+
+            if (json.has("description"))
+            {
+                JSONObject descriptionObj;
+                try
+                {
+                    descriptionObj = json.getJSONObject("description");
+                    myBook.setDescription(descriptionObj.getString("value"));
+                }
+                catch (JSONException e)
+                {
+                    myBook.setDescription(json.getString("description"));
+                }
+
+
+            }
+            if (json.has("author_name"))
+            {
+                try
+                {
+                    final JSONArray authors = json.getJSONArray("author_name");
+                    int numAuthors = authors.length();
+                    final String[] authorStrings = new String[numAuthors];
+                    for (int i = 0; i < numAuthors; i++) {
+                        authorStrings[i] = authors.getString(i);
+                    }
+                    myBook.setAuthor(TextUtils.join(", ",authorStrings));
+                }catch (JSONException e)
+                {
+                    myBook.setAuthor("");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return myBook;
+    }
+
+    public static Book fromJsonBasicInfo(JSONObject jsonObject)
     {
         Book book = new Book();
         try
@@ -106,7 +168,7 @@ public class Book implements Serializable {
 
             if (jsonObject.has("cover_i"))
             {
-             book.hasCoverImage = true;
+                book.hasCoverImage = true;
             }
 
             book.title = jsonObject.has("title_suggest") ? jsonObject.getString("title_suggest") : "";
@@ -150,7 +212,7 @@ public class Book implements Serializable {
                 e.printStackTrace();
                 continue;
             }
-            Book book = Book.fromJson(bookJson);
+            Book book = Book.fromJsonBasicInfo(bookJson);
             if (book != null)
             {
                 books.add(book);
@@ -158,5 +220,6 @@ public class Book implements Serializable {
         }
         return books;
     }
+
 }
 

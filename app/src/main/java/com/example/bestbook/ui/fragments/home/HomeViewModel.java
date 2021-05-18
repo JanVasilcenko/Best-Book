@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 
 public class HomeViewModel extends ViewModel {
-private BookRepository bookRepository;
-private BookFirebaseRepository bookFirebaseRepository;
+    private BookRepository bookRepository;
+    private BookFirebaseRepository bookFirebaseRepository;
 
     public HomeViewModel()
     {
@@ -23,17 +23,18 @@ private BookFirebaseRepository bookFirebaseRepository;
     }
 
     public void searchBooks(String name)
-{
-    bookRepository.searchForBooks(name);
-}
+    {
+        bookRepository.searchForBooks(name);
+    }
 
     LiveData<ArrayList<Book>> getSearchedBooks()
-{
-    return bookRepository.getSearchedBooks();
-}
+    {
+        return bookRepository.getSearchedBooks();
+    }
 
     public ArrayList<Book> getBookAverageRating(ArrayList<Book> books, BookAdapter bookAdapter)
     {
+
         return bookFirebaseRepository.getAverageBookRating(books, bookAdapter);
     }
 

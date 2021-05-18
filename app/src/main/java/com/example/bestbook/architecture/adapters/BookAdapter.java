@@ -2,6 +2,7 @@ package com.example.bestbook.architecture.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.bestbook.R;
 import com.example.bestbook.model.Book;
+import com.example.bestbook.model.BookComparator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,13 +41,24 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onBindViewHolder(ViewHolder viewHolder, int position)
     {
+        SortByRating();
         viewHolder.bookName.setText(books.get(position).getTitle());
         viewHolder.authorName.setText(books.get(position).getAuthor());
         viewHolder.ratingBar.setRating(books.get(position).getRating());
         Picasso.with(this.context).load(Uri.parse(books.get(position).getMediumCoverUrl())).error(R.drawable.no_cover_available).into(viewHolder.cover);
-        //Glide.with(context).load(books.get(position).getMediumCoverUrl()).into(viewHolder.cover);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void SortByRating()
+    {
+        if (!books.isEmpty()) {
+            books.sort(new BookComparator());
+        }
     }
 
     public int getItemCount(){

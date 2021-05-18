@@ -65,69 +65,23 @@ public class BookRepository {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                   try
-                   {
-                       JSONObject json = new JSONObject(response.body().string());
+                    try
+                    {
+                        JSONObject json = new JSONObject(response.body().string());
 
-                       Book myBook = new Book();
+                        Book myBook = new Book();
 
-                       myBook.setId(r.getBookID());
+                        myBook = Book.fromJsonDetailInfo(json);
 
-                       if (json.has("title"))
-                       {
-                           myBook.setTitle(json.getString("title"));
-                       }
+                        myBook.setId(r.getBookID());
 
-                       if (json.has("publishers"))
-                       {
-                           JSONArray publishers = json.getJSONArray("publishers");
-                           myBook.setPublisher(publishers.getString(0));
-                       }
-
-                       if (json.has("number_of_pages"))
-                       {
-                           myBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
-                       }
-
-                       if (json.has("description"))
-                       {
-                           JSONObject descriptionObj;
-                           try
-                           {
-                               descriptionObj = json.getJSONObject("description");
-                               myBook.setDescription(descriptionObj.getString("value"));
-                           }
-                           catch (JSONException e)
-                           {
-                               myBook.setDescription(json.getString("description"));
-                           }
-
-
-                       }
-                       if (json.has("author_name"))
-                       {
-                           try
-                           {
-                               final JSONArray authors = json.getJSONArray("author_name");
-                               int numAuthors = authors.length();
-                               final String[] authorStrings = new String[numAuthors];
-                               for (int i = 0; i < numAuthors; i++) {
-                                   authorStrings[i] = authors.getString(i);
-                               }
-                               myBook.setAuthor(TextUtils.join(", ",authorStrings));
-                           }catch (JSONException e)
-                           {
-                               myBook.setAuthor("");
-                           }
-                       }
-
-                       returnedBooks.add(myBook);
-                       myBooks.setValue(returnedBooks);
-                   }
-                   catch (Exception e)
-                   {
-
-                   }
+                        returnedBooks.add(myBook);
+                        myBooks.setValue(returnedBooks);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -156,41 +110,41 @@ public class BookRepository {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful())
                 {
-                   try
-                   {
-                       JSONObject json = new JSONObject(response.body().string());
+                    try
+                    {
+                        JSONObject json = new JSONObject(response.body().string());
 
-                       if (json.has("publishers"))
-                       {
-                           JSONArray publishers = json.getJSONArray("publishers");
-                           passedBook.setPublisher(publishers.getString(0));
-                       }
+                        if (json.has("publishers"))
+                        {
+                            JSONArray publishers = json.getJSONArray("publishers");
+                            passedBook.setPublisher(publishers.getString(0));
+                        }
 
-                       if (json.has("number_of_pages"))
-                       {
-                           passedBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
-                       }
+                        if (json.has("number_of_pages"))
+                        {
+                            passedBook.setNumOfPages(Integer.toString(json.getInt("number_of_pages"))+" pages");
+                        }
 
-                       if (json.has("description"))
-                       {
-                           JSONObject descriptionObj;
-                           try
-                           {
-                               descriptionObj = json.getJSONObject("description");
-                               passedBook.setDescription(descriptionObj.getString("value"));
-                           }
-                           catch (JSONException e)
-                           {
-                               passedBook.setDescription(json.getString("description"));
-                           }
+                        if (json.has("description"))
+                        {
+                            JSONObject descriptionObj;
+                            try
+                            {
+                                descriptionObj = json.getJSONObject("description");
+                                passedBook.setDescription(descriptionObj.getString("value"));
+                            }
+                            catch (JSONException e)
+                            {
+                                passedBook.setDescription(json.getString("description"));
+                            }
 
 
-                       }
+                        }
 
-                       book.setValue(passedBook);
-                   } catch (Exception e) {
-                       e.printStackTrace();
-                   }
+                        book.setValue(passedBook);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -232,9 +186,9 @@ public class BookRepository {
                                 }
                             }
                             else
-                                {
-                                    books = new ArrayList<>(extractedBooks);
-                                }
+                            {
+                                books = new ArrayList<>(extractedBooks);
+                            }
 
                             bookCollection.setValue(books);
                         }
@@ -252,4 +206,4 @@ public class BookRepository {
             }
         });
     }
-    }
+}
