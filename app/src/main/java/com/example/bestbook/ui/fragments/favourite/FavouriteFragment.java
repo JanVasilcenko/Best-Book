@@ -15,11 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bestbook.R;
-import com.example.bestbook.architecture.adapters.BookAdapter;
+import com.example.bestbook.adapters.BookAdapter;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.model.FavouriteReference;
 import com.example.bestbook.ui.fragments.detail.BookDetailActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 

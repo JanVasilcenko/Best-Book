@@ -1,4 +1,4 @@
-package com.example.bestbook.architecture.repositories;
+package com.example.bestbook.repositories;
 
 import android.app.Application;
 import android.widget.Toast;

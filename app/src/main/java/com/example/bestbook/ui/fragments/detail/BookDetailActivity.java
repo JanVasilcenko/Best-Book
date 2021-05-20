@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.bestbook.R;
-import com.example.bestbook.architecture.adapters.CommentAdapter;
+import com.example.bestbook.adapters.CommentAdapter;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.model.Comment;
 import com.example.bestbook.model.FavouriteReference;

@@ -6,15 +6,14 @@ import android.widget.RatingBar;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.bestbook.architecture.adapters.CommentAdapter;
-import com.example.bestbook.architecture.repositories.AuthenticationRepository;
-import com.example.bestbook.architecture.repositories.BookFirebaseRepository;
-import com.example.bestbook.architecture.repositories.BookRepository;
-import com.example.bestbook.architecture.database.ReferenceRepository;
+import com.example.bestbook.adapters.CommentAdapter;
+import com.example.bestbook.repositories.AuthenticationRepository;
+import com.example.bestbook.repositories.BookFirebaseRepository;
+import com.example.bestbook.webservices.BookRepository;
+import com.example.bestbook.database.ReferenceRepository;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.model.Comment;
 import com.example.bestbook.model.FavouriteReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

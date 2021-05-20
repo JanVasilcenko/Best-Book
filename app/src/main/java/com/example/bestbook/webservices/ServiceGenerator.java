@@ -1,6 +1,4 @@
-package com.example.bestbook.architecture.webservices;
-
-import com.example.bestbook.architecture.webservices.BookApi;
+package com.example.bestbook.webservices;
 
 import retrofit2.Retrofit;
 

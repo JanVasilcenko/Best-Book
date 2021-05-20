@@ -1,4 +1,4 @@
-package com.example.bestbook.architecture.webservices;
+package com.example.bestbook.webservices;
 
 
 import okhttp3.ResponseBody;

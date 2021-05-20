@@ -1,4 +1,4 @@
-package com.example.bestbook.architecture.database;
+package com.example.bestbook.database;
 
 import android.app.Application;
 

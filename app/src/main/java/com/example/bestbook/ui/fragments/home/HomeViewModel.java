@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 
-import com.example.bestbook.architecture.adapters.BookAdapter;
-import com.example.bestbook.architecture.repositories.BookFirebaseRepository;
-import com.example.bestbook.architecture.repositories.BookRepository;
+import com.example.bestbook.adapters.BookAdapter;
+import com.example.bestbook.repositories.BookFirebaseRepository;
+import com.example.bestbook.webservices.BookRepository;
 import com.example.bestbook.model.Book;
 
 import java.util.ArrayList;

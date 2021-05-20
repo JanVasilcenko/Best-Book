@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.bestbook.architecture.repositories.AuthenticationRepository;
+import com.example.bestbook.repositories.AuthenticationRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivityViewModel extends AndroidViewModel {

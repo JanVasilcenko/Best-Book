@@ -1,16 +1,12 @@
-package com.example.bestbook.architecture.repositories;
+package com.example.bestbook.repositories;
 
-import android.os.Build;
-import android.util.Log;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
-import com.example.bestbook.architecture.adapters.BookAdapter;
-import com.example.bestbook.architecture.adapters.CommentAdapter;
+import com.example.bestbook.adapters.BookAdapter;
+import com.example.bestbook.adapters.CommentAdapter;
 import com.example.bestbook.model.Book;
-import com.example.bestbook.model.BookComparator;
 import com.example.bestbook.model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class BookFirebaseRepository {
     private FirebaseDatabase firebaseDatabase;

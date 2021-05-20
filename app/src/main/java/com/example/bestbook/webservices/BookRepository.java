@@ -1,16 +1,12 @@
-package com.example.bestbook.architecture.repositories;
+package com.example.bestbook.webservices;
 
 
 
-
-import android.text.TextUtils;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
-import com.example.bestbook.architecture.webservices.BookApi;
-import com.example.bestbook.architecture.webservices.ServiceGenerator;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.model.FavouriteReference;
 

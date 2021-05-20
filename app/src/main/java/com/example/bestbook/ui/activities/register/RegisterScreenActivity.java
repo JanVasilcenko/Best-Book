@@ -39,10 +39,10 @@ public class RegisterScreenActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        registerViewModel.getUserData().observe(this, new Observer<FirebaseUser>() {
+        registerViewModel.getLogoutData().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser != null)
+            public void onChanged(Boolean loggedOut) {
+                if (loggedOut == false)
                 {
                     Intent toMainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(toMainActivityIntent);

@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.example.bestbook.R;
 
-import com.example.bestbook.architecture.adapters.BookAdapter;
+import com.example.bestbook.adapters.BookAdapter;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.ui.fragments.detail.BookDetailActivity;
 

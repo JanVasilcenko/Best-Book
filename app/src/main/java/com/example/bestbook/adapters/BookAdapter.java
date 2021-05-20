@@ -1,4 +1,4 @@
-package com.example.bestbook.architecture.adapters;
+package com.example.bestbook.adapters;
 
 import android.content.Context;
 import android.net.Uri;

@@ -5,11 +5,11 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.bestbook.architecture.adapters.BookAdapter;
-import com.example.bestbook.architecture.repositories.AuthenticationRepository;
-import com.example.bestbook.architecture.repositories.BookFirebaseRepository;
-import com.example.bestbook.architecture.repositories.BookRepository;
-import com.example.bestbook.architecture.database.ReferenceRepository;
+import com.example.bestbook.adapters.BookAdapter;
+import com.example.bestbook.repositories.AuthenticationRepository;
+import com.example.bestbook.repositories.BookFirebaseRepository;
+import com.example.bestbook.webservices.BookRepository;
+import com.example.bestbook.database.ReferenceRepository;
 import com.example.bestbook.model.Book;
 import com.example.bestbook.model.FavouriteReference;
 
